@@ -1,0 +1,92 @@
+// Snyk Code (SAST) Security Pipeline
+// Scans application source code for security vulnerabilities
+
+pipeline {
+    agent any
+    
+    environment {
+        // Configure your Snyk API token as a Jenkins credential with ID 'snyk-api-token'
+        SNYK_TOKEN = credentials('snyk-api-token')
+        REPO_URL = 'https://github.com/snyk-labs/nodejs-goof.git'
+        BRANCH = 'main'
+    }
+    
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo '🔄 Checking out application code...'
+                git branch: "${BRANCH}", url: "${REPO_URL}"
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                echo '📦 Installing npm dependencies...'
+                sh '''
+                    node --version
+                    npm --version
+                    npm install
+                '''
+            }
+        }
+        
+        stage('Snyk Code Scan (SAST)') {
+            steps {
+                echo '🔍 Scanning for code vulnerabilities with Snyk Code...'
+                script {
+                    sh '''
+                        # Authenticate with Snyk
+                        snyk auth ${SNYK_TOKEN}
+                        
+                        # Run Snyk Code test
+                        snyk code test \
+                            --json-file-output=snyk-code-results.json \
+                            || true
+                    '''
+                }
+            }
+        }
+        
+        stage('Generate Report Summary') {
+            steps {
+                echo '📋 Generating vulnerability summary...'
+                sh '''
+                    echo "╔════════════════════════════════════════════════════╗"
+                    echo "║     SNYK CODE SECURITY SCAN SUMMARY                ║"
+                    echo "╚════════════════════════════════════════════════════╝"
+                    echo ""
+                    
+                    if [ -f snyk-code-results.json ]; then
+                        echo "🔍 Snyk Code (SAST) Scan Results:"
+                        echo "   ✓ Scan completed - Check archived report for details"
+                        echo ""
+                    fi
+                    
+                    echo "═══════════════════════════════════════════════════════"
+                    echo "📊 View detailed results in the archived artifacts!"
+                    echo "═══════════════════════════════════════════════════════"
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo '🧹 Archiving Snyk Code scan results...'
+            archiveArtifacts artifacts: 'snyk-code-results.json', allowEmptyArchive: true, fingerprint: true
+        }
+        
+        success {
+            echo '✅ Security scan pipeline completed successfully!'
+            echo ''
+            echo '📊 RESULTS AVAILABLE IN:'
+            echo '  • Archived Artifacts (click on build number, then "Artifacts")'
+            echo '  • Snyk Web Dashboard: https://app.snyk.io'
+        }
+        
+        failure {
+            echo '❌ Pipeline failed! Check the logs above.'
+        }
+    }
+}
+

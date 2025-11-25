@@ -1,0 +1,41 @@
+# Jenkins Home - Contains sensitive data
+jenkins-war/jenkins_home/
+
+# Keep only the structure, exclude all generated/sensitive data
+!jenkins-war/jenkins_home/.gitkeep
+
+# Jenkins credentials and secrets
+**/credentials.xml
+**/secrets/
+**/secret.*
+**/*.enc
+**/*.key
+
+# Jenkins logs
+*.log
+*.log.*
+
+# Build artifacts
+**/builds/
+**/workspace/
+**/fingerprints/
+**/caches/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+
+# Snyk reports (generated at runtime)
+snyk-*.json
+snyk-*.sarif
+snyk-*.html
+
+# OS files
+.DS_Store
+Thumbs.db

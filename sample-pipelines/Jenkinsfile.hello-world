@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello, Jenkins!'
+                echo "Build Number: ${env.BUILD_NUMBER}"
+                echo "Job Name: ${env.JOB_NAME}"
+            }
+        }
+        
+        stage('Check Environment') {
+            steps {
+                sh 'echo "Current User: $(whoami)"'
+                sh 'echo "Current Directory: $(pwd)"'
+                sh 'echo "Date: $(date)"'
+            }
+        }
+        
+        stage('Success') {
+            steps {
+                echo 'Pipeline completed successfully!'
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'This runs regardless of the result.'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}
+
+
