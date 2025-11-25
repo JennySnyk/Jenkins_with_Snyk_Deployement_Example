@@ -108,7 +108,7 @@ pipeline {
                     ],
                     healthy: 0,
                     unhealthy: 1,
-                    failedTotalHigh: 1
+                    enabledForFailure: true
                 )
                 
                 // Publish HTML report
