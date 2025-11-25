@@ -1,3 +1,7 @@
+// ⚠️  REGIONAL HOSTING: If you're using Snyk EU, AU, or US-02 tenants:
+// 1. Configure your region: snyk config environment SNYK-EU-01 (or SNYK-AU-01, SNYK-US-02)
+// 2. More info: https://docs.snyk.io/snyk-data-and-governance/regional-hosting-and-data-residency
+
 pipeline {
     agent any
     
@@ -26,6 +30,9 @@ pipeline {
             steps {
                 script {
                     sh '''
+                        # For EU tenant users, configure your region first:
+                        # snyk config environment SNYK-EU-01
+                        
                         # Write token to temp file for Snyk to use
                         echo "$SNYK_TOKEN" > /tmp/.snyk_token
                         export SNYK_TOKEN=$(cat /tmp/.snyk_token)

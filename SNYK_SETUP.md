@@ -62,7 +62,32 @@ Perfect for local development and quick scans.
 npm install -g snyk
 ```
 
-#### Step 2: Authenticate
+#### Step 2: Configure Region (If Applicable)
+
+If you're using Snyk EU, AU, or US-02 tenants, configure your region before authenticating:
+
+```bash
+# For EU tenant
+snyk config environment SNYK-EU-01
+
+# For Australia tenant
+snyk config environment SNYK-AU-01
+
+# For US-02 tenant
+snyk config environment SNYK-US-02
+
+# For US-01 (default), no configuration needed
+```
+
+**Available Regions:**
+- **SNYK-US-01** (US) - Default: `https://app.snyk.io`
+- **SNYK-US-02** (US): `https://app.us.snyk.io`
+- **SNYK-EU-01** (Germany): `https://app.eu.snyk.io`
+- **SNYK-AU-01** (Australia): `https://app.au.snyk.io`
+
+More info: [Regional hosting documentation](https://docs.snyk.io/snyk-data-and-governance/regional-hosting-and-data-residency)
+
+#### Step 3: Authenticate
 
 ```bash
 # Option A: Interactive (opens browser)
@@ -76,7 +101,7 @@ snyk --version
 snyk whoami
 ```
 
-#### Step 3: Test a Project
+#### Step 4: Test a Project
 
 ```bash
 # Clone demo application (intentionally vulnerable)
@@ -88,7 +113,7 @@ npm install
 snyk code test
 ```
 
-#### Step 4: View Results
+#### Step 5: View Results
 
 The scan will show vulnerabilities directly in your terminal:
 
@@ -122,7 +147,7 @@ Tested nodejs-goof for known issues
 Found 15 issues: 6 high, 5 medium, 4 low
 ```
 
-#### Step 5: Generate Reports
+#### Step 6: Generate Reports
 
 ```bash
 # JSON format (for parsing/automation)
@@ -137,7 +162,7 @@ snyk code test \
   --sarif-file-output=results.sarif
 ```
 
-#### Step 6: Create HTML Report
+#### Step 7: Create HTML Report
 
 ```bash
 # Install snyk-to-html

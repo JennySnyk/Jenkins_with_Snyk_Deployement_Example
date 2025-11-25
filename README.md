@@ -210,6 +210,12 @@ cd jenkins-war && tar czf backup.tar.gz jenkins_home/
 ### Snyk Code Commands
 
 ```bash
+# Configure region (if using EU, AU, or US-02 tenants)
+# For EU: snyk config environment SNYK-EU-01
+# For AU: snyk config environment SNYK-AU-01
+# For US-02: snyk config environment SNYK-US-02
+# More info: https://docs.snyk.io/snyk-data-and-governance/regional-hosting-and-data-residency
+
 # Authenticate
 snyk auth YOUR_TOKEN
 

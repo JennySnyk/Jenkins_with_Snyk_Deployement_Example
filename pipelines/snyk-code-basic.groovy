@@ -1,5 +1,9 @@
 // Basic Snyk Code (SAST) Pipeline
 // This pipeline demonstrates the simplest way to run Snyk Code scans
+//
+// ⚠️  REGIONAL HOSTING: If you're using Snyk EU, AU, or US-02 tenants:
+// 1. Configure your region: snyk config environment SNYK-EU-01 (or SNYK-AU-01, SNYK-US-02)
+// 2. More info: https://docs.snyk.io/snyk-data-and-governance/regional-hosting-and-data-residency
 
 pipeline {
     agent any
@@ -33,6 +37,9 @@ pipeline {
             steps {
                 echo '🔍 Running Snyk Code scan (SAST)...'
                 sh '''
+                    # For EU tenant users, configure your region first:
+                    # snyk config environment SNYK-EU-01
+                    
                     # Authenticate with Snyk
                     snyk auth ${SNYK_TOKEN}
                     

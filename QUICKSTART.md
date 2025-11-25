@@ -100,6 +100,12 @@ npm install
 ### Step 3: Run Snyk Code Scan
 
 ```bash
+# If using EU, AU, or US-02 tenants, configure your region first:
+# snyk config environment SNYK-EU-01  # For EU
+# snyk config environment SNYK-AU-01  # For Australia
+# snyk config environment SNYK-US-02  # For US-02
+# More info: https://docs.snyk.io/snyk-data-and-governance/regional-hosting-and-data-residency
+
 # Basic scan (shows results in terminal)
 snyk code test
 ```
