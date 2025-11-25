@@ -4,7 +4,7 @@
 1. ✅ Jenkins is running at http://localhost:8080
 2. ✅ Jenkins setup wizard completed
 3. ✅ Snyk CLI installed and authenticated
-4. ✅ Snyk API token configured: `97cf915e-7877-4461-8c41-94d85117be5a`
+4. ✅ Snyk API token configured
 
 ## 🎯 Next: Create Your Security Scanning Pipelines
 
@@ -54,7 +54,7 @@ This pipeline uses the Snyk Jenkins Plugin (requires plugin installation).
 3. Click **"Add Credentials"**
 4. Configure:
    - **Kind:** Secret text
-   - **Secret:** `97cf915e-7877-4461-8c41-94d85117be5a`
+   - **Secret:** ***
    - **ID:** `snyk-api-token`
    - **Description:** Snyk API Token
 5. Click **"OK"**
